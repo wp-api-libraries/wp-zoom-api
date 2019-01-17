@@ -14,20 +14,20 @@
  * GitHub Plugin URI: https://github.com/wp-api-libraries/wp-zoom-api
  * GitHub Branch: master
  */
- 
+
  // Exit if accessed directly.
  defined( 'ABSPATH' ) || exit;
- 
+
 if ( ! class_exists( 'ZoomAPI' ) ) {
-	
+
 	/**
 	 * ZoomAPI class.
 	 */
 	class ZoomAPI {
-		
+
 		/**
 		 * client_id
-		 * 
+		 *
 		 * @var mixed
 		 * @access protected
 		 */
@@ -35,12 +35,12 @@ if ( ! class_exists( 'ZoomAPI' ) ) {
 
 		/**
 		 * client_secret
-		 * 
+		 *
 		 * @var mixed
 		 * @access protected
 		 */
 		protected $client_secret;
-		
+
 		/**
 		 * BaseAPI Endpoint
 		 *
@@ -48,27 +48,27 @@ if ( ! class_exists( 'ZoomAPI' ) ) {
 		 * @access protected
 		 */
 		protected $base_uri = 'https://api.zoom.us/v2/';
-		
+
 		/**
 		 * Route being called.
 		 *
 		 * @var string
 		 */
 		protected $route = '';
-		
+
 		/**
 		 * __construct function.
-		 * 
+		 *
 		 * @access public
 		 * @param mixed $client_id
 		 * @param mixed $client_secret
 		 * @return void
 		 */
-		public function __construct(  $client_id, $client_secret ) {
-			$this->client_id = $client_id;
+		public function __construct( $client_id, $client_secret ) {
+			$this->client_id     = $client_id;
 			$this->client_secret = $client_secret;
 		}
-		
+
 		/**
 		 * Prepares API request.
 		 *
@@ -93,7 +93,7 @@ if ( ! class_exists( 'ZoomAPI' ) ) {
 			$this->args['timeout'] = 20;
 			return $this;
 		}
-		
+
 		/**
 		 * Fetch the request from the API.
 		 *
@@ -113,20 +113,20 @@ if ( ! class_exists( 'ZoomAPI' ) ) {
 			}
 			return $body;
 		}
-		
+
 		/**
 		 * Set request headers.
 		 */
 		protected function set_headers() {
-			
+
 			$access_token = '';
-			
+
 			$this->args['headers'] = array(
 				'Content-Type'  => 'application/json',
 				'Authorization' => 'Bearer ' . $access_token,
 			);
 		}
-		
+
 		/**
 		 * Clear query data.
 		 */
@@ -134,7 +134,7 @@ if ( ! class_exists( 'ZoomAPI' ) ) {
 			$this->args       = array();
 			$this->query_args = array();
 		}
-		
+
 		/**
 		 * Check if HTTP status code is a success.
 		 *
@@ -144,10 +144,10 @@ if ( ! class_exists( 'ZoomAPI' ) ) {
 		protected function is_status_ok( $code ) {
 			return ( 200 <= $code && 300 > $code );
 		}
-		
+
 		/**
 		 * get_users function.
-		 * 
+		 *
 		 * @access public
 		 * @param array $args (default: array())
 		 * @return void
@@ -155,19 +155,19 @@ if ( ! class_exists( 'ZoomAPI' ) ) {
 		public function get_users( $args = array() ) {
 			return $this->build_request( 'users', $args )->fetch();
 		}
-		
+
 		/**
 		 * get_meetings function.
-		 * 
+		 *
 		 * @access public
 		 * @param mixed $user_id
 		 * @param array $args (default: array())
 		 * @return void
 		 */
 		public function get_meetings( $user_id, $args = array() ) {
-			return $this->build_request( 'users/'.$user_id.'/meetings/', $args )->fetch();
+			return $this->build_request( 'users/' . $user_id . '/meetings/', $args )->fetch();
 		}
-		
+
 	}
-	
+
 }
